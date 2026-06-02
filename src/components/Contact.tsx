@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy, Github, Linkedin, Twitter } from "lucide-react";
+import { Check, Copy, Github, Linkedin, Phone } from "lucide-react";
 import { FlipHeading } from "./FlipHeading";
 
-const EMAIL = "synckraft.me@gmail.com";
+const EMAIL = "shaansolanki17@gmail.com";
 
 const SOCIALS = [
-  { label: "GitHub", icon: Github, href: "#" },
-  { label: "LinkedIn", icon: Linkedin, href: "#" },
-  { label: "Twitter", icon: Twitter, href: "#" },
+  { label: "GitHub", icon: Github, href: "https://github.com/ShaanSolanki" },
+  { label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/feed/" },
+  { label: "Call", icon: Phone, href: "tel:+919021606508" },
 ];
 
 export function Contact() {
@@ -54,6 +54,7 @@ export function Contact() {
               key={label}
               href={href}
               aria-label={label}
+              {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="grid h-12 w-12 place-items-center rounded-full border border-[var(--line)] hover:bg-[var(--ink)] hover:text-[var(--paper)] transition-colors"
             >
               <Icon className="h-5 w-5" />

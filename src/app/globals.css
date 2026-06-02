@@ -266,13 +266,86 @@ a {
   backface-visibility: hidden;
 }
 
-/* ===== generated cover gradient fallback ===== */
-.cover-fallback {
+/* ===== generated cover poster (renders when a screenshot is missing) =====
+   container-query sizing (cqw) so it scales to any card size — the small
+   stacked deck, the wide featured card, and the mobile carousel alike. */
+.cover-mock {
   position: absolute;
   inset: 0;
+  overflow: hidden;
   display: flex;
-  align-items: flex-end;
-  padding: 1.2rem;
+  flex-direction: column;
+  container-type: inline-size;
+  color: var(--ink);
+}
+.cover-mock .bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1.6cqw;
+  padding: 3cqw 4cqw;
+  background: rgba(255, 255, 255, 0.35);
+  border-bottom: 1px solid rgba(21, 20, 15, 0.08);
+  backdrop-filter: blur(2px);
+}
+.cover-mock .dot {
+  width: 2.2cqw;
+  height: 2.2cqw;
+  min-width: 4px;
+  min-height: 4px;
+  border-radius: 9999px;
+  background: rgba(21, 20, 15, 0.22);
+}
+.cover-mock .url {
+  margin-left: 2cqw;
+  padding: 1cqw 3cqw;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.55);
+  font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+  font-size: min(3cqw, 13px);
+  color: rgba(21, 20, 15, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 78cqw;
+}
+.cover-mock .body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3cqw;
+  padding: 7cqw;
+}
+.cover-mock .kicker {
+  font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+  font-size: min(2.8cqw, 12px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(21, 20, 15, 0.55);
+}
+.cover-mock .title {
+  font-size: min(13cqw, 64px);
+  line-height: 0.92;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.cover-mock .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8cqw;
+  margin-top: 1cqw;
+}
+.cover-mock .chip {
+  padding: 1.4cqw 3cqw;
+  border: 1px solid rgba(21, 20, 15, 0.18);
+  border-radius: 9999px;
+  font-size: min(2.8cqw, 12px);
+  color: rgba(21, 20, 15, 0.72);
+  white-space: nowrap;
 }
 
 /* ===== loader ===== */

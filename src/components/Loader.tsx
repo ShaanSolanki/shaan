@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/gsap";
+
+// useLayoutEffect on the client, useEffect on the server (avoids the SSR warning)
+const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 const LINES = [
   "> initializing portfolio…",
@@ -24,17 +27,27 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
   const termRef = useRef<HTMLDivElement>(null);
   const wordmarkRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  // Quick-exit before the browser paints when we shouldn't animate (a reload
+  // within the same session, or reduced-motion). Running this as a layout effect
+  // removes the loader *before* paint, so it never flashes its terminal on reload.
+  useIsoLayoutEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const already = sessionStorage.getItem("shaan_loaded");
     if (reduced || already) {
-      // defer out of the effect body to avoid a synchronous cascading render
-      const id = requestAnimationFrame(() => {
-        setDone(true);
-        onComplete();
-      });
-      return () => cancelAnimationFrame(id);
+      setDone(true);
+      onComplete();
+      return;
     }
+    // pre-hide the terminal lines before paint so they don't flash fully-visible
+    // for one frame before the type-in animation starts.
+    const lineEls = termRef.current?.querySelectorAll<HTMLElement>(".term-line");
+    if (lineEls) gsap.set(lineEls, { opacity: 0, y: 8 });
+  }, [onComplete]);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const already = sessionStorage.getItem("shaan_loaded");
+    if (reduced || already) return;
 
     const root = rootRef.current;
     if (!root) return;
@@ -49,10 +62,14 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
       const counter = { v: 0 };
       const lineEls = termRef.current?.querySelectorAll<HTMLElement>(".term-line") ?? [];
 
+      // safety re-assert of the hidden start state (already set pre-paint in the
+      // layout effect above) so the type-in always animates from 0.
+      gsap.set(lineEls, { opacity: 0, y: 8 });
+
       const tl = gsap.timeline({ onComplete: finish });
 
       // terminal lines type/fade in
-      tl.from(lineEls, { opacity: 0, y: 8, duration: 0.35, stagger: 0.28, ease: "power2.out" });
+      tl.to(lineEls, { opacity: 1, y: 0, duration: 0.35, stagger: 0.28, ease: "power2.out" });
 
       // counter 0 → 100 + bar fill
       tl.to(

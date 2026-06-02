@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/gsap";
+
+// useLayoutEffect on the client, useEffect on the server (avoids the SSR warning)
+const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 const ROLES = [
   "Full-Stack Developer",
@@ -14,17 +17,32 @@ export function Hero({ ready }: { ready: boolean }) {
   const rootRef = useRef<HTMLElement>(null);
   const [role, setRole] = useState(0);
 
+  // Hide the title letters AND the meta blocks under their start state BEFORE the
+  // first paint, so the loader wipe never flashes them un-animated. Done with GSAP
+  // (not CSS) so the markup itself stays visible if JS never runs — the content is
+  // always there. Hiding the meta here is what prevents the "bottom text appears,
+  // then blanks, then the title drops in" glitch when the loader hands off.
+  useIsoLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.set(root.querySelectorAll(".hero-line .reveal-span"), { yPercent: 110 });
+    gsap.set(root.querySelectorAll(".hero-meta"), { opacity: 0, y: 18 });
+  }, []);
+
   // intro: title masks up, meta fades — fires when the loader hands off
   useEffect(() => {
     if (!ready) return;
     const root = rootRef.current;
     if (!root) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       const spans = root.querySelectorAll<HTMLElement>(".hero-line .reveal-span");
-      gsap.set(spans, { yPercent: 110 });
       const tl = gsap.timeline();
       tl.to(spans, { yPercent: 0, duration: 1, ease: "power4.out", stagger: 0.04 });
-      tl.from(".hero-meta", { opacity: 0, y: 18, duration: 0.8, stagger: 0.12, ease: "power3.out" }, "-=0.4");
+      // animate the meta TO its resting state (it was pre-hidden above) so it
+      // never snaps from a visible frame to blank.
+      tl.to(".hero-meta", { opacity: 1, y: 0, duration: 0.8, stagger: 0.12, ease: "power3.out" }, "-=0.4");
     }, root);
     return () => ctx.revert();
   }, [ready]);

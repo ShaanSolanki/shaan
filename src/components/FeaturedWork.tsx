@@ -104,8 +104,8 @@ export function FeaturedWork() {
             ref={cardRef}
             className="work-card absolute inset-0 rounded-2xl overflow-hidden border border-[var(--line)] bg-white shadow-[0_50px_90px_-60px_rgba(20,18,12,0.55)]"
           >
-            <Cover slug={p.slug} title={p.title} showLabel={false} />
-            <div className="absolute left-0 top-0 m-4 rounded-full bg-[var(--paper)]/85 backdrop-blur px-3 py-1 font-mono text-xs text-[var(--ink)]">
+            <Cover slug={p.slug} title={p.title} href={p.href} kicker={p.role} tags={p.tags} />
+            <div className="absolute right-0 top-0 m-4 rounded-full bg-[var(--paper)]/85 backdrop-blur px-3 py-1 font-mono text-xs text-[var(--ink)]">
               {p.index} / {String(n).padStart(2, "0")}
             </div>
           </div>
@@ -127,9 +127,11 @@ export function FeaturedWork() {
           <div className="flex items-center justify-between">
             <a
               href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center gap-1 font-Satoshi-Bold border-b border-[var(--ink)] pb-0.5"
             >
-              View project
+              {p.href.includes("github.com") ? "View on GitHub" : "View project"}
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <div className="flex gap-3">
@@ -150,7 +152,7 @@ export function FeaturedWork() {
             </div>
           </div>
           <p className="mt-8 font-mono text-xs text-[var(--muted)]">
-            Demo content — real case studies &amp; links coming soon.
+            Live sites open in a new tab · private builds link to GitHub.
           </p>
         </div>
       </div>

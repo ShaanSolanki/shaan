@@ -1,19 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Mic, Bot, Workflow, LayoutGrid, Users, WifiOff, Radio, BrainCircuit } from "lucide-react";
+import { Users, MessageCircle, PhoneCall, ShoppingBag, PenTool, Bot, Workflow, Globe } from "lucide-react";
 import { gsap } from "@/lib/gsap";
 import { FlipHeading } from "./FlipHeading";
 
 const CAPS = [
-  { icon: Mic, title: "Voice Assistants", line: "Conversational systems with low-latency STT & TTS." },
-  { icon: Bot, title: "AI Agents", line: "LLM-driven workflows that reason and act." },
-  { icon: Workflow, title: "Automation", line: "Triggers, queues, and reliable background jobs." },
-  { icon: LayoutGrid, title: "SaaS Platforms", line: "Scalable products from auth to dashboard." },
-  { icon: Users, title: "CRM Systems", line: "Pipelines, contacts, and team workflows." },
-  { icon: WifiOff, title: "Offline-first AI", line: "On-device intelligence that syncs on reconnect." },
-  { icon: Radio, title: "Real-time Comms", line: "Presence, sockets, and instant sync." },
-  { icon: BrainCircuit, title: "LLM Integrations", line: "Models wired into real product surfaces." },
+  { icon: Users, title: "CRM Systems", line: "Pipelines, contacts, and team workflows that scale." },
+  { icon: MessageCircle, title: "WhatsApp Automation", line: "Broadcasts, auto-replies, and lead capture on autopilot." },
+  { icon: PhoneCall, title: "Call Automation", line: "Outbound campaigns, IVR, and AI-assisted calling." },
+  { icon: ShoppingBag, title: "E-commerce", line: "Storefronts, carts, and checkout that convert." },
+  { icon: PenTool, title: "UI / UX Design", line: "Interfaces that feel clear, modern, and effortless." },
+  { icon: Bot, title: "AI Agents", line: "LLM-driven assistants that reason and act." },
+  { icon: Workflow, title: "Workflow Automation", line: "Triggers, queues, and reliable background jobs." },
+  { icon: Globe, title: "Web & SaaS", line: "Fast, animated sites and full products, end to end." },
 ];
 
 /** Pinned horizontal track (mwg_effect033) of focus areas, scrolls left on vertical scroll. */
