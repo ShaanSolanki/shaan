@@ -1,0 +1,346 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+}
+
+:root {
+  /* ===== LIGHT · matte · rich ===== */
+  --paper: #faf8f3; /* warm ivory, never pure white */
+  --paper-2: #f3f0e8; /* slightly deeper panel */
+  --ink: #15140f; /* warm charcoal, never pure black */
+  --muted: #6b6863; /* warm grey for labels/meta */
+  --line: #e4e0d6; /* hairline borders */
+  --accent: #1f32e6; /* electric cobalt — used sparingly */
+  --accent-soft: #1f32e61a;
+  --radius: 0.625rem;
+}
+
+/* ===== fonts (self-hosted Satoshi) ===== */
+@font-face {
+  font-family: "Satoshi-Black";
+  src: url("/fonts/Satoshi-Black.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi-Bold";
+  src: url("/fonts/Satoshi-Bold.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi-Medium";
+  src: url("/fonts/Satoshi-Medium.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi-Regular";
+  src: url("/fonts/Satoshi-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+.font-Satoshi-Black {
+  font-family: "Satoshi-Black", sans-serif;
+}
+.font-Satoshi-Bold {
+  font-family: "Satoshi-Bold", sans-serif;
+}
+.font-Satoshi-Medium {
+  font-family: "Satoshi-Medium", sans-serif;
+}
+.font-Satoshi-Regular {
+  font-family: "Satoshi-Regular", sans-serif;
+}
+.font-mono {
+  font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+}
+
+/* ===== base ===== */
+html,
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+}
+body {
+  font-family: "Satoshi-Medium", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+/* hide native cursor on desktop where the custom one runs */
+@media (hover: hover) and (pointer: fine) {
+  .has-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* ===== heading letter-flip (FlipHeading) ===== */
+.char {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  overflow: hidden;
+  line-height: 1;
+}
+.char > span {
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.char > span:nth-child(2) {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+.flip-heading:hover .char > span:nth-child(1),
+.char.is-flipping > span:nth-child(1) {
+  transform: translateY(-100%);
+}
+.flip-heading:hover .char > span:nth-child(2),
+.char.is-flipping > span:nth-child(2) {
+  transform: translateY(-100%);
+}
+
+/* ===== navbar (mix-blend) ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.25rem;
+  mix-blend-mode: difference;
+  color: #fff;
+  pointer-events: none;
+}
+.navbar a,
+.navbar span {
+  pointer-events: auto;
+}
+@media (min-width: 768px) {
+  .navbar {
+    padding: 1.75rem 2rem;
+  }
+}
+
+/* ===== effect033: horizontal track (Capabilities) ===== */
+.mwg_effect033 {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.mwg_effect033 .scroll {
+  pointer-events: none;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.mwg_effect033 .container {
+  white-space: nowrap;
+  will-change: transform;
+  align-items: center;
+  width: max-content;
+  height: 100%;
+  padding: 0 90vw;
+  display: flex;
+}
+.mwg_effect033 .medias {
+  align-items: center;
+  gap: 4vw;
+  height: auto;
+  display: flex;
+  position: relative;
+}
+.mwg_effect033 .panel {
+  flex-shrink: 0;
+  width: 26vw;
+  min-width: 26vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  border-radius: 1vw;
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+  padding: 2vw;
+  box-shadow: 0 30px 60px -40px rgba(20, 18, 12, 0.35);
+}
+
+/* ===== effect018: stacked deck (WorkDeck) ===== */
+.mwg_effect018 .pin-height {
+  height: 300vh;
+}
+.mwg_effect018 .container {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0 0 0 12vw;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+.mwg_effect018 .card {
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--line);
+  border-radius: 1vw;
+  background: #fff;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 22vw;
+  margin: 0 0 0 -6vw;
+  padding: 1vw;
+  display: flex;
+  will-change: transform;
+  overflow: hidden;
+  box-shadow: 0 40px 80px -50px rgba(20, 18, 12, 0.5);
+}
+.mwg_effect018 .card:first-child {
+  margin-left: 0;
+}
+
+/* ===== effect029: word reveal (Manifesto / Quote) ===== */
+.mwg_effect029 {
+  padding: 0 0 20vh;
+}
+.mwg_effect029 .wrap {
+  justify-content: space-between;
+  padding: 0 25px;
+  display: flex;
+  gap: 4vw;
+}
+.mwg_effect029 .paragraph {
+  width: 60vw;
+  padding: 24vh 0 0;
+}
+.mwg_effect029 .paragraph span {
+  display: inline-block;
+  padding-right: 0.28em;
+}
+.mwg_effect029 .sticky-media {
+  padding: 24vh 0 0;
+  position: relative;
+}
+.mwg_effect029 .sticky-media .inner {
+  aspect-ratio: 1 / 1;
+  width: 18vw;
+  position: sticky;
+  top: calc(-25px + 100vh - 18vw);
+  border-radius: 0.6vw;
+  overflow: hidden;
+}
+
+/* ===== Reveal clip-wipe ===== */
+.reveal {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+.reveal img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== featured work flip/roll stage ===== */
+.work-stage {
+  perspective: 1600px;
+}
+.work-card {
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* ===== generated cover gradient fallback ===== */
+.cover-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.2rem;
+}
+
+/* ===== loader ===== */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ===== custom cursor ===== */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid var(--accent);
+  border-radius: 9999px;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 91;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  background: var(--accent);
+  border-radius: 9999px;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ===== film grain ===== */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ===== marquee ===== */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .grain,
+  .cursor-ring,
+  .cursor-dot {
+    display: none !important;
+  }
+}
