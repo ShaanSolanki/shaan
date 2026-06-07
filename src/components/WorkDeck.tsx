@@ -45,15 +45,23 @@ export function WorkDeck() {
         <div className="pin-height">
           <div className="container">
             {projects.map((p) => (
-              <div key={p.slug} className="card">
+              <a
+                key={p.slug}
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open ${p.title}`}
+                className="card"
+                data-cursor
+              >
                 <div className="relative flex-1 w-full overflow-hidden rounded-[0.7vw]">
-                  <Cover slug={p.slug} title={p.title} href={p.href} kicker={p.role} tags={p.tags} />
+                  <Cover slug={p.slug} title={p.title} href={p.href} kicker={p.role} tags={p.tags} image={p.image} />
                 </div>
                 <div className="pt-3 flex items-baseline justify-between">
                   <span className="font-Satoshi-Bold text-[var(--ink)] text-lg">{p.title}</span>
                   <span className="font-mono text-xs text-[var(--muted)]">{p.index}</span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -63,12 +71,19 @@ export function WorkDeck() {
       <div className="w-full py-8 md:hidden">
         <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-5 pb-2">
           {projects.map((p) => (
-            <div key={p.slug} className="snap-center shrink-0 w-[72vw]">
+            <a
+              key={p.slug}
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${p.title}`}
+              className="snap-center shrink-0 w-[72vw]"
+            >
               <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-[var(--line)] bg-white">
-                <Cover slug={p.slug} title={p.title} href={p.href} kicker={p.role} tags={p.tags} />
+                <Cover slug={p.slug} title={p.title} href={p.href} kicker={p.role} tags={p.tags} image={p.image} />
               </div>
               <div className="pt-2 font-Satoshi-Bold">{p.title}</div>
-            </div>
+            </a>
           ))}
         </div>
       </div>

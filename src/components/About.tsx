@@ -5,7 +5,7 @@ import { gsap } from "@/lib/gsap";
 import { FlipHeading } from "./FlipHeading";
 
 const TIMELINE = [
-  { k: "Foundations", v: "MERN stack — React, Node, Express, MongoDB. Clean UI over solid backends." },
+  { k: "Foundations", v: "Next.js & React with Firebase and Node. Clean UI over solid, real-time backends." },
   { k: "AI Integrations", v: "LLMs, agents, and AI woven into real product surfaces." },
   { k: "Voice & Real-time", v: "Speech-to-text, text-to-speech, sockets, and live presence." },
   { k: "Offline-first AI", v: "On-device intelligence and scalable, resilient architectures." },
@@ -65,7 +65,7 @@ export function About() {
         <div className="md:col-span-7">
           <p className="text-xl md:text-2xl leading-relaxed mb-6">
             I&rsquo;m Shaan Solanki — a full-stack developer and AI-focused product builder. I work
-            primarily with the MERN stack and love combining clean UI/UX with powerful backends.
+            primarily with Next.js and Firebase, and love combining clean UI/UX with powerful backends.
           </p>
           <p className="text-[var(--muted)] leading-relaxed mb-12 max-w-xl">
             What drives me most is building products that feel futuristic, useful, and interactive. I

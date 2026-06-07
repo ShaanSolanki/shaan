@@ -4,9 +4,9 @@ import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const STACK = [
-  "React.js", "Next.js", "TypeScript", "Node.js", "Express.js", "MongoDB",
-  "Firebase", "Tailwind CSS", "Framer Motion", "JWT Auth", "REST APIs",
-  "Git & GitHub", "VPS", "PM2", "Nginx",
+  "Next.js", "React.js", "TypeScript", "Firebase", "Node.js", "Tailwind CSS",
+  "GSAP", "Framer Motion", "REST APIs", "JWT Auth", "Vercel", "Git & GitHub",
+  "Express.js", "MongoDB", "Nginx",
 ];
 
 function Row({ reverse }: { reverse: boolean }) {

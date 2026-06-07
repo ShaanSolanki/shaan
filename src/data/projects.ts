@@ -1,8 +1,8 @@
 /**
- * Shaan's work. Hosted projects link to their live site; private / unhosted
- * work points to GitHub. Every card has content — no empty cards.
- * Drop matching screenshots in /public/images/work/<slug>.jpg (a gradient
- * fallback renders automatically if the image is missing — see <Cover />).
+ * Shaan's work — real, hosted projects only. Every card links to a live site.
+ * By default each card renders a generated "mini-site" poster (see <Cover />).
+ * To use a real screenshot instead, drop it in /public and set `image` to its
+ * path, e.g. image: "/images/work/solaroft.jpg".
  */
 export type Project = {
   slug: string;
@@ -12,13 +12,69 @@ export type Project = {
   role: string;
   tags: string[];
   blurb: string;
-  href: string; // live site, or GitHub for private / unhosted work
+  href: string; // live site
+  image?: string; // optional real screenshot; omit to use the generated poster
 };
 
 export const projects: Project[] = [
   {
-    slug: "cadtech",
+    slug: "solaroft",
     index: "01",
+    title: "Solaroft",
+    year: "2025",
+    role: "Full-stack · Business Website",
+    tags: ["Next.js", "Firebase", "Responsive UI", "SEO"],
+    blurb:
+      "A polished, conversion-focused business website — clean layouts, smooth motion, and a fast, SEO-friendly build that presents the brand with clarity. Built with Next.js and Firebase. Live at solaroft.com.",
+    href: "https://solaroft.com/",
+  },
+  {
+    slug: "perfume",
+    index: "02",
+    title: "Perfume Store",
+    year: "2025",
+    role: "Full-stack · E-commerce",
+    tags: ["Next.js", "Firebase", "Cart & Checkout", "Responsive"],
+    blurb:
+      "A full e-commerce storefront for a perfume brand — product catalog, cart, and a smooth checkout flow wrapped in an elegant, responsive UI. Built with Next.js and deployed on Vercel.",
+    href: "https://perfume-e-commerse.vercel.app/",
+  },
+  {
+    slug: "voicera",
+    index: "03",
+    title: "Voicera",
+    year: "2025",
+    role: "Product · AI Voice Agents",
+    tags: ["Next.js", "AI Agents", "Voice", "Real-Time"],
+    blurb:
+      "An AI voice-agent platform — create and manage intelligent agents that talk, listen, and act in real time. Built with Next.js and a real-time, AI-driven backend.",
+    href: "https://voicera-ten.vercel.app/agents",
+  },
+  {
+    slug: "ecell",
+    index: "04",
+    title: "E-Cell PRMITR",
+    year: "2025",
+    role: "Full-stack · Web Platform",
+    tags: ["Next.js", "Firebase", "Events", "Animations"],
+    blurb:
+      "The official Entrepreneurship Cell platform for PRMIT&R — events, initiatives, and the team behind it, wrapped in a modern animated interface. Built to inform students and showcase the cell's activities. Live at ecell.prmitr.in.",
+    href: "https://ecell.prmitr.in/",
+  },
+  {
+    slug: "harmony",
+    index: "05",
+    title: "Harmony Music",
+    year: "2025",
+    role: "Frontend · Music App",
+    tags: ["React", "Vercel", "Streaming UI", "Responsive"],
+    blurb:
+      "A sleek music streaming web app — browse, play, and explore tracks in a smooth, responsive interface. Clean component architecture and playful interaction, deployed on Vercel.",
+    href: "https://song-hazel-nu.vercel.app/",
+  },
+  {
+    slug: "cadtech",
+    index: "06",
     title: "CADTech",
     year: "2025",
     role: "Full-stack · Business Website",
@@ -26,60 +82,5 @@ export const projects: Project[] = [
     blurb:
       "A polished marketing site for CADTech — clean, fast, and conversion-focused. Responsive layouts, smooth sections, and an SEO-friendly structure that presents the brand and its courses with clarity. Live at cadtech.co.in.",
     href: "https://www.cadtech.co.in/",
-  },
-  {
-    slug: "ecell",
-    index: "02",
-    title: "E-Cell PRMITR",
-    year: "2025",
-    role: "Full-stack · Web Platform",
-    tags: ["React", "Events", "Team", "Animations"],
-    blurb:
-      "The official Entrepreneurship Cell platform for PRMIT&R — events, initiatives, and the team behind it, wrapped in a modern animated interface. Built to inform students and showcase the cell's activities. Live at ecell.prmitr.in.",
-    href: "https://ecell.prmitr.in/",
-  },
-  {
-    slug: "harmony",
-    index: "03",
-    title: "Harmony Music",
-    year: "2025",
-    role: "Frontend · Music App",
-    tags: ["React", "Vercel", "Streaming UI", "Responsive"],
-    blurb:
-      "A sleek music streaming web app — browse, play, and explore tracks in a smooth, responsive interface. A demo product showcasing clean component architecture and playful interaction, deployed on Vercel.",
-    href: "https://song-hazel-nu.vercel.app/",
-  },
-  {
-    slug: "flowcrm",
-    index: "04",
-    title: "FlowCRM",
-    year: "2025",
-    role: "Product · CRM SaaS",
-    tags: ["MERN", "Pipelines", "Role Auth", "Dashboard"],
-    blurb:
-      "A modern CRM for small teams — pipelines, contacts, and lightweight automations that actually feel good to use. Role-based auth, a clean dashboard, and an event-driven engine. Private build — code on GitHub.",
-    href: "https://github.com/ShaanSolanki",
-  },
-  {
-    slug: "whatsflow",
-    index: "05",
-    title: "WhatsFlow",
-    year: "2025",
-    role: "Automation · WhatsApp",
-    tags: ["Node", "WhatsApp API", "Webhooks", "Queues"],
-    blurb:
-      "WhatsApp automation that handles conversations at scale — broadcast flows, smart auto-replies, and lead capture wired into the business backend. Reliable queues keep messages flowing. Private build — code on GitHub.",
-    href: "https://github.com/ShaanSolanki",
-  },
-  {
-    slug: "dialer",
-    index: "06",
-    title: "Call Automation",
-    year: "2024",
-    role: "Automation · Voice",
-    tags: ["Telephony", "IVR", "LLM Agents", "Node"],
-    blurb:
-      "An automated calling system — outbound campaigns, IVR flows, and AI-assisted call handling that books, qualifies, and follows up without manual dialing. Private build — code on GitHub.",
-    href: "https://github.com/ShaanSolanki",
   },
 ];

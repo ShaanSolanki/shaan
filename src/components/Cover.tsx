@@ -29,20 +29,23 @@ interface CoverProps {
   kicker?: string;
   /** tag chips shown on the poster */
   tags?: string[];
+  /** optional real screenshot path; when omitted the mock poster is rendered */
+  image?: string;
   /** kept for API compat; the rich mock always renders its own label now */
   showLabel?: boolean;
 }
 
 /**
- * Project cover. Tries /images/work/<slug>.jpg; if that's missing it paints a
- * tasteful, deterministic "mini-site" poster — a mock browser frame with the
- * project's domain, title, and tags — so a card is never empty or broken.
+ * Project cover. When a real screenshot (`image`) is provided it renders that;
+ * otherwise — or if the image fails to load — it paints a tasteful, deterministic
+ * "mini-site" poster (a mock browser frame with the project's domain, title, and
+ * tags) so a card is never empty, broken, or firing 404s for missing files.
  */
-export function Cover({ slug, title, className, href, kicker, tags }: CoverProps) {
+export function Cover({ slug, title, className, href, kicker, tags, image }: CoverProps) {
   const [failed, setFailed] = useState(false);
   const [a, b] = hues(slug);
 
-  if (failed) {
+  if (!image || failed) {
     return (
       <div
         className={cn("cover-mock", className)}
@@ -81,7 +84,7 @@ export function Cover({ slug, title, className, href, kicker, tags }: CoverProps
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={`/images/work/${slug}.jpg`}
+      src={image}
       alt={title}
       loading="lazy"
       onError={() => setFailed(true)}

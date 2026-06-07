@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Shaan Solanki — Full-Stack & AI Product Builder",
   description:
-    "Shaan Solanki builds futuristic, automation-driven digital experiences with the MERN stack and AI — voice systems, real-time apps, SaaS, and intelligent interfaces.",
+    "Shaan Solanki builds futuristic, automation-driven digital experiences with Next.js, Firebase, and AI — voice systems, real-time apps, SaaS, and intelligent interfaces.",
 };
 
 export default function RootLayout({

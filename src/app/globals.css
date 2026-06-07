@@ -348,6 +348,55 @@ a {
   white-space: nowrap;
 }
 
+/* ===== hero intro =====
+   Pure-CSS reveal driven by classes the Hero sets from the loader handoff:
+   `.is-loading` holds the pre-animation pose (baked into the server HTML so there's
+   no reload flash), and `.is-ready` plays the masked reveal. Doing this in CSS —
+   rather than letting GSAP own an inline override forever — means the title can
+   never get stranded hidden if a tween fails to run: with no class at all (e.g.
+   JS disabled) the content is simply visible. Per-item stagger comes from --d. */
+.hero.is-loading .reveal-span {
+  transform: translateY(110%);
+}
+.hero.is-loading .hero-meta {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.hero.is-ready .reveal-span {
+  animation: heroLetterIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+.hero.is-ready .hero-meta {
+  animation: heroMetaIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes heroLetterIn {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes heroMetaIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero .reveal-span,
+  .hero .hero-meta {
+    transform: none;
+    opacity: 1;
+    animation: none;
+  }
+}
+
 /* ===== loader ===== */
 .loader {
   position: fixed;

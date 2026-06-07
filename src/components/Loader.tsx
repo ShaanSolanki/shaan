@@ -21,6 +21,7 @@ const LINES = [
  */
 export function Loader({ onComplete }: { onComplete: () => void }) {
   const [done, setDone] = useState(false);
+  const startedRef = useRef(false); // guards against React StrictMode double-mount
   const rootRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
@@ -45,17 +46,32 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
   }, [onComplete]);
 
   useEffect(() => {
+    // Run the intro exactly once. Under React StrictMode (dev) effects fire
+    // twice; without this guard the timeline is built, reverted, then rebuilt —
+    // which is why the loading screen appeared to play a second time.
+    if (startedRef.current) return;
+    startedRef.current = true;
+
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const already = sessionStorage.getItem("shaan_loaded");
-    if (reduced || already) return;
+    if (reduced || already) {
+      onComplete();
+      setDone(true);
+      return;
+    }
 
     const root = rootRef.current;
-    if (!root) return;
+    if (!root) {
+      // No node to animate — never strand the page behind a hidden hero.
+      onComplete();
+      setDone(true);
+      return;
+    }
 
+    // Remove the loader node + remember the session once the wipe has fully run.
     const finish = () => {
       sessionStorage.setItem("shaan_loaded", "1");
       setDone(true);
-      onComplete();
     };
 
     const ctx = gsap.context(() => {
@@ -97,14 +113,19 @@ export function Loader({ onComplete }: { onComplete: () => void }) {
         duration: 0.5,
         ease: "power3.in",
       });
+      // Hand off to the hero the moment the wipe starts, so its title masks up
+      // in sync with the panel clearing away — no dead gap between the two.
       tl.to(
         root,
-        { clipPath: "inset(0% 0% 100% 0%)", duration: 0.8, ease: "power4.inOut" },
+        { clipPath: "inset(0% 0% 100% 0%)", duration: 0.8, ease: "power4.inOut", onStart: onComplete },
         "-=0.1",
       );
     }, root);
 
-    return () => ctx.revert();
+    // No cleanup/revert here on purpose: this is a one-shot intro that runs a
+    // single time per session and removes itself when finished. Reverting on the
+    // StrictMode dev unmount would abort the animation mid-flight.
+    void ctx;
   }, [onComplete]);
 
   if (done) return null;

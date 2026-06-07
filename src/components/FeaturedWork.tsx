@@ -104,7 +104,7 @@ export function FeaturedWork() {
             ref={cardRef}
             className="work-card absolute inset-0 rounded-2xl overflow-hidden border border-[var(--line)] bg-white shadow-[0_50px_90px_-60px_rgba(20,18,12,0.55)]"
           >
-            <Cover slug={p.slug} title={p.title} href={p.href} kicker={p.role} tags={p.tags} />
+            <Cover slug={p.slug} title={p.title} href={p.href} kicker={p.role} tags={p.tags} image={p.image} />
             <div className="absolute right-0 top-0 m-4 rounded-full bg-[var(--paper)]/85 backdrop-blur px-3 py-1 font-mono text-xs text-[var(--ink)]">
               {p.index} / {String(n).padStart(2, "0")}
             </div>
